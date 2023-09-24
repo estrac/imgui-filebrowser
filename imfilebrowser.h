@@ -66,7 +66,7 @@ namespace ImGui
         // display the browsing window if opened
         void Display();
 
-        // returns true when there is a selected filename and the "ok" button was clicked
+        // returns true when there is a selected filename and the "OK" button was clicked
         bool HasSelected() const noexcept;
 
         // set current browsing directory
@@ -275,10 +275,8 @@ inline void ImGui::FileBrowser::SetWindowSize(int width, int height) noexcept
 inline void ImGui::FileBrowser::SetTitle(std::string title)
 {
     title_ = std::move(title);
-    openLabel_ = title_ + "##filebrowser_" +
-                 std::to_string(reinterpret_cast<size_t>(this));
-    openNewDirLabel_ = "new dir##new_dir_" +
-                       std::to_string(reinterpret_cast<size_t>(this));
+    openLabel_ = title_ + "##filebrowser_";
+    openNewDirLabel_ = "new dir##new_dir_";
 }
 
 inline void ImGui::FileBrowser::Open()
@@ -482,7 +480,7 @@ inline void ImGui::FileBrowser::Display()
             InputText("name", newDirNameBuf_->data(), newDirNameBuf_->size());
             SameLine();
 
-            if(Button("ok") && (*newDirNameBuf_)[0] != '\0')
+            if(Button("OK") && (*newDirNameBuf_)[0] != '\0')
             {
                 ScopeGuard closeNewDirPopup([] { CloseCurrentPopup(); });
                 if(create_directory(pwd_ / newDirNameBuf_->data()))
@@ -634,7 +632,7 @@ inline void ImGui::FileBrowser::Display()
 
     if(!(flags_ & ImGuiFileBrowserFlags_SelectDirectory))
     {
-        if(Button(" ok ") && !selectedFilenames_.empty())
+        if(Button(" OK ") && !selectedFilenames_.empty())
         {
             ok_ = true;
             CloseCurrentPopup();
@@ -642,7 +640,7 @@ inline void ImGui::FileBrowser::Display()
     }
     else
     {
-        if(Button(" ok "))
+        if(Button(" OK "))
         {
             ok_ = true;
             CloseCurrentPopup();
@@ -652,7 +650,7 @@ inline void ImGui::FileBrowser::Display()
     SameLine();
 
     bool shouldExit =
-        Button("cancel") || closeFlag_ ||
+        Button("Cancel") || closeFlag_ ||
         ((flags_ & ImGuiFileBrowserFlags_CloseOnEsc) &&
         IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows) &&
         IsKeyPressed(ImGuiKey_Escape));
